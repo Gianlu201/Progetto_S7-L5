@@ -7,19 +7,23 @@ const MY_KEY =
 const productsList = [];
 
 window.onload = async () => {
-  const response = await fetch(URL, {
-    method: 'GET',
-    headers: {
-      Authorization: MY_KEY,
-      'Content-type': 'application/json; charset= UTF-8',
-    },
-  });
-  const data = await response.json();
-  data.forEach((element) => {
-    productsList.push(element);
-  });
-  if (productsList.length > 0) {
-    showProducts();
+  try {
+    const response = await fetch(URL, {
+      method: 'GET',
+      headers: {
+        Authorization: MY_KEY,
+        'Content-type': 'application/json; charset= UTF-8',
+      },
+    });
+    const data = await response.json();
+    data.forEach((element) => {
+      productsList.push(element);
+    });
+    if (productsList.length > 0) {
+      showProducts();
+    }
+  } catch (errore) {
+    console.log(errore);
   }
 };
 
