@@ -1,0 +1,8 @@
+nav .navbar-brand img {
+  width: 100px;
+}
+
+nav a:link,
+nav a:visited {
+  color: white !important;
+}
