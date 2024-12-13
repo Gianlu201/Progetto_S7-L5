@@ -23,8 +23,6 @@ window.onload = async () => {
   }
 };
 
-console.log(productsList);
-
 function showProducts() {
   productsSpace.innerHTML = '';
   productsList.forEach((element) => {
@@ -56,11 +54,13 @@ function showProducts() {
     newBtnModify.setAttribute('type', 'button');
     newBtnModify.classList.add('btn', 'btn-warning');
     newBtnModify.innerText = 'Modifica';
+    newBtnModify.setAttribute('onclick', `modifyProduct("${element._id}")`);
 
     const newBtnMore = document.createElement('button');
     newBtnMore.setAttribute('type', 'button');
     newBtnMore.classList.add('btn', 'btn-info');
     newBtnMore.innerText = 'Scopri di più';
+    newBtnMore.setAttribute('onclick', `showMore("${element._id}")`);
 
     newCard.appendChild(newImg);
     newBody.appendChild(newH5);
@@ -73,4 +73,12 @@ function showProducts() {
 
     productsSpace.appendChild(newCol);
   });
+}
+
+function modifyProduct(myId) {
+  window.location = `back.html?id=${myId}`;
+}
+
+function showMore(myId) {
+  window.location = `details.html?id=${myId}`;
 }

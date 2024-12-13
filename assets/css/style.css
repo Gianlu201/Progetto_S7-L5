@@ -11,3 +11,11 @@ nav a:visited {
   min-width: 15em !important;
   max-width: 18em !important;
 }
+
+.card-text {
+  display: -webkit-box;
+  -webkit-box-direction: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
