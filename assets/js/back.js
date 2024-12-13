@@ -94,6 +94,7 @@ btnDelete.addEventListener('click', (e) => {
 });
 
 btnModalConfirm.addEventListener('click', () => {
+  loadingAnimation();
   getOrSetProduct('DELETE', productId);
   setTimeout(() => {
     myForm.reset();
@@ -114,11 +115,16 @@ async function sendToAPI(method, obj, myId) {
       },
       body: JSON.stringify(obj),
     });
-    console.log(response);
+    if (method === 'PUT') {
+      loadingAnimation();
+    } else {
+      loadingAnimation('POST');
+    }
+
+    myForm.reset();
   } catch (errore) {
     console.log(errore);
   }
-  myForm.reset();
 }
 
 function createMyObj() {
@@ -169,4 +175,30 @@ async function showPopOver(validation) {
   setTimeout(() => {
     document.getElementById(validation).click();
   }, 3000);
+}
+
+async function loadingAnimation(method) {
+  document.getElementById('loadingDiv').removeAttribute('hidden');
+  const main = document.getElementsByTagName('main');
+  main[0].classList.add('opacized');
+  setTimeout(() => {
+    document.getElementById('loadingDiv').setAttribute('hidden', 'true');
+    if (method != 'POST') {
+      showMessage();
+    } else if (method == 'POST') {
+      showMessage(method);
+      main[0].classList.remove('opacized');
+    }
+  }, 5000);
+}
+
+function showMessage(method) {
+  document.getElementById('messageModal').classList.add('d-block');
+  if (method != 'POST') {
+    document.getElementById('messageModal').setAttribute('hidden', 'true');
+  } else {
+    setTimeout(() => {
+      window.location = 'index.html';
+    }, 3000);
+  }
 }

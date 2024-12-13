@@ -180,6 +180,10 @@
       </form>
     </main>
 
+    <div id="loadingDiv" class="spinner-grow text-warning" role="status" hidden>
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
     <!-- DELETE MODAL -->
     <div
       class="modal fade"
@@ -349,6 +353,26 @@
             >
               Svuota campi
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADVICE MODAL -->
+    <div class="modal" tabindex="-1" id="messageModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Operazione andata a buon fine</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Operazione effettuata con successo</p>
           </div>
         </div>
       </div>

@@ -7,6 +7,14 @@ nav a:visited {
   color: white !important;
 }
 
+#loadingDiv {
+  width: 70px !important;
+  height: 70px !important;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
 /*---- MAIN PAGE ----------------------------------------------------*/
 .card {
   min-width: 15em !important;
@@ -16,7 +24,16 @@ nav a:visited {
 .card .card-img-top {
   max-height: 256px;
   width: fit-content !important;
+  max-width: 90% !important;
   margin: 10px auto 3px;
+}
+
+.card-title {
+  display: -webkit-box;
+  -webkit-box-direction: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
 }
 
 .card-text {
@@ -42,4 +59,8 @@ button.validation {
   top: 55px;
   left: 100px;
   z-index: -100;
+}
+
+.opacized {
+  opacity: 0.2 !important;
 }
