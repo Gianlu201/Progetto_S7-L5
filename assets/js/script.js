@@ -7,6 +7,13 @@ const MY_KEY =
 const productsList = [];
 
 window.onload = async () => {
+  document.getElementById('mainSpinner').removeAttribute('hidden');
+  setTimeout(() => {
+    document.getElementById('mainSpinner').setAttribute('hidden', 'true');
+    if (productsList.length > 0) {
+      showProducts();
+    }
+  }, 2000);
   try {
     const response = await fetch(URL, {
       method: 'GET',
@@ -19,9 +26,9 @@ window.onload = async () => {
     data.forEach((element) => {
       productsList.push(element);
     });
-    if (productsList.length > 0) {
-      showProducts();
-    }
+    // if (productsList.length > 0) {
+    //   showProducts();
+    // }
   } catch (errore) {
     console.log(errore);
   }
