@@ -6,3 +6,8 @@ nav a:link,
 nav a:visited {
   color: white !important;
 }
+
+.card {
+  min-width: 15em !important;
+  max-width: 18em !important;
+}
