@@ -13,6 +13,12 @@ nav a:visited {
   max-width: 18em !important;
 }
 
+.card .card-img-top {
+  max-height: 256px;
+  width: fit-content !important;
+  margin: 10px auto 3px;
+}
+
 .card-text {
   display: -webkit-box;
   -webkit-box-direction: vertical;

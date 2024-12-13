@@ -15,6 +15,16 @@ const productDescription = document.getElementById('description');
 const btnSendForm = document.getElementById('sendForm');
 let myProduct;
 
+class Product {
+  constructor(_name, _description, _brand, _imageUrl, _price) {
+    this.name = _name;
+    this.description = _description;
+    this.brand = _brand;
+    this.imageUrl = _imageUrl;
+    this.price = _price;
+  }
+}
+
 window.onload = () => {
   if (productId) {
     title.innerText = 'Edit product';
@@ -48,4 +58,43 @@ function showProductInfo(product) {
   productPrice.value = product.price;
   productImageURL.value = product.imageUrl;
   productDescription.value = product.description;
+}
+
+btnSendForm.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (productId) {
+    sendToAPI('PUT', createMyObj(), productId);
+  } else {
+    sendToAPI('POST', createMyObj(), '');
+  }
+});
+
+async function sendToAPI(method, obj, myId) {
+  try {
+    const response = await fetch(URL + myId, {
+      method: method,
+      headers: {
+        Authorization: MY_KEY,
+        'Content-type': 'application/json; charset= UTF-8',
+      },
+      body: JSON.stringify(obj),
+    });
+    console.log(response);
+    // const data = await response.json();
+    // myProduct = data;
+  } catch (errore) {
+    console.log(errore);
+  }
+  myForm.reset();
+}
+
+function createMyObj() {
+  const name = productName.value;
+  const brand = productBrand.value;
+  const price = parseInt(productPrice.value);
+  const url = productImageURL.value;
+  const description = productDescription.value;
+
+  const myObj = new Product(name, description, brand, url, price);
+  return myObj;
 }
