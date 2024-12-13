@@ -12,8 +12,20 @@ const productBrand = document.getElementById('brand');
 const productPrice = document.getElementById('price');
 const productImageURL = document.getElementById('imageURL');
 const productDescription = document.getElementById('description');
+const btnDelete = document.getElementById('delete');
+const btnResetForm = document.getElementById('resForm');
 const btnSendForm = document.getElementById('sendForm');
+const btnModalConfirm = document.getElementById('confirm');
+const btnResConfirm = document.getElementById('reseButt');
+
 let myProduct;
+
+const popoverTriggerList = document.querySelectorAll(
+  '[data-bs-toggle="popover"]'
+);
+const popoverList = [...popoverTriggerList].map(
+  (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+);
 
 class Product {
   constructor(_name, _description, _brand, _imageUrl, _price) {
@@ -28,16 +40,18 @@ class Product {
 window.onload = () => {
   if (productId) {
     title.innerText = 'Edit product';
-    getProduct(productId);
+    btnSendForm.setAttribute('onclick', 'console.log("ciao")');
+    btnDelete.removeAttribute('hidden');
+    getOrSetProduct('GET', productId);
   } else {
     title.innerText = 'Add product';
   }
 };
 
-async function getProduct(myId) {
+async function getOrSetProduct(method, myId) {
   try {
     const response = await fetch(URL + myId, {
-      method: 'GET',
+      method: method,
       headers: {
         Authorization: MY_KEY,
         'Content-type': 'application/json; charset= UTF-8',
@@ -60,13 +74,34 @@ function showProductInfo(product) {
   productDescription.value = product.description;
 }
 
+btnResetForm.addEventListener('click', (e) => {
+  e.preventDefault();
+});
+
 btnSendForm.addEventListener('click', (e) => {
   e.preventDefault();
-  if (productId) {
-    sendToAPI('PUT', createMyObj(), productId);
-  } else {
-    sendToAPI('POST', createMyObj(), '');
+  if (validationInputs()) {
+    if (productId) {
+      sendToAPI('PUT', createMyObj(), productId);
+    } else {
+      sendToAPI('POST', createMyObj(), '');
+    }
   }
+});
+
+btnDelete.addEventListener('click', (e) => {
+  e.preventDefault();
+});
+
+btnModalConfirm.addEventListener('click', () => {
+  getOrSetProduct('DELETE', productId);
+  setTimeout(() => {
+    myForm.reset();
+  }, 500);
+});
+
+btnResConfirm.addEventListener('click', () => {
+  myForm.reset();
 });
 
 async function sendToAPI(method, obj, myId) {
@@ -80,8 +115,6 @@ async function sendToAPI(method, obj, myId) {
       body: JSON.stringify(obj),
     });
     console.log(response);
-    // const data = await response.json();
-    // myProduct = data;
   } catch (errore) {
     console.log(errore);
   }
@@ -97,4 +130,43 @@ function createMyObj() {
 
   const myObj = new Product(name, description, brand, url, price);
   return myObj;
+}
+
+function validationInputs() {
+  const myInputs = [
+    productName,
+    productBrand,
+    productPrice,
+    productImageURL,
+    productDescription,
+  ];
+  const myValidation = [
+    'nameValidation',
+    'brandValidation',
+    'priceValidation',
+    'urlValidation',
+    'descriptionValidation',
+  ];
+
+  for (let i = 0; i < myInputs.length; i++) {
+    if (myInputs[i].value === '' || myInputs[i].value == null) {
+      showPopOver(myValidation[i]);
+      return false;
+    }
+    if (myInputs[i] == productPrice) {
+      if (productPrice.value != parseInt(productPrice.value)) {
+        showPopOver('priceIntValidation');
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+async function showPopOver(validation) {
+  document.getElementById(validation).click();
+  setTimeout(() => {
+    document.getElementById(validation).click();
+  }, 3000);
 }

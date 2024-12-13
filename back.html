@@ -15,6 +15,10 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
@@ -34,64 +38,321 @@
       <hr class="my-3" />
 
       <form id="myForm">
-        <label for="name">Nome</label>
-        <input
-          class="mb-3 mt-1 w-100 form-control"
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Nome prodotto"
-          required
-        />
+        <div class="position-relative">
+          <label for="name">Nome</label>
+          <input
+            class="mb-3 mt-1 w-100 form-control"
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Nome prodotto"
+            required
+          />
+          <button
+            id="nameValidation"
+            type="button"
+            class="opacity-0 validation"
+            data-bs-container="body"
+            data-bs-toggle="popover"
+            data-bs-placement="bottom"
+            data-bs-content="Campo obbligatorio"
+          ></button>
+        </div>
 
-        <label for="brand">Brand</label>
-        <input
-          class="mb-3 mt-1 w-100 form-control"
-          type="text"
-          id="brand"
-          name="brand"
-          placeholder="Modello"
-          required
-        />
+        <div class="position-relative">
+          <label for="brand">Brand</label>
+          <input
+            class="mb-3 mt-1 w-100 form-control"
+            type="text"
+            id="brand"
+            name="brand"
+            placeholder="Modello"
+            required
+          />
+          <button
+            id="brandValidation"
+            type="button"
+            class="opacity-0 validation"
+            data-bs-container="body"
+            data-bs-toggle="popover"
+            data-bs-placement="bottom"
+            data-bs-content="Campo obbligatorio"
+          ></button>
+        </div>
 
-        <label for="price">Prezzo</label>
-        <input
-          class="mb-3 mt-1 w-100 form-control"
-          type="number"
-          id="price"
-          name="price"
-          placeholder="€0"
-          required
-        />
+        <div class="position-relative">
+          <label for="price">Prezzo</label>
+          <input
+            class="mb-3 mt-1 w-100 form-control"
+            type="number"
+            id="price"
+            name="price"
+            placeholder="€0"
+            required
+          />
+          <button
+            id="priceValidation"
+            type="button"
+            class="opacity-0 validation"
+            data-bs-container="body"
+            data-bs-toggle="popover"
+            data-bs-placement="bottom"
+            data-bs-content="Campo obbligatorio"
+          ></button>
+          <button
+            id="priceIntValidation"
+            type="button"
+            class="opacity-0 validation"
+            data-bs-container="body"
+            data-bs-toggle="popover"
+            data-bs-placement="bottom"
+            data-bs-content="Il prezzo del prodotto deve essere un numero intero"
+          ></button>
+        </div>
 
-        <label for="imageURL">URL Immagine</label>
-        <input
-          class="mb-3 mt-1 w-100 form-control"
-          type="url"
-          id="imageURL"
-          name="imageURL"
-          placeholder="https://placehold.it/300x400"
-          required
-        />
+        <div class="position-relative">
+          <label for="imageURL">URL Immagine</label>
+          <input
+            class="mb-3 mt-1 w-100 form-control"
+            type="url"
+            id="imageURL"
+            name="imageURL"
+            placeholder="https://placehold.it/300x400"
+            required
+          />
+          <button
+            id="urlValidation"
+            type="button"
+            class="opacity-0 validation"
+            data-bs-container="body"
+            data-bs-toggle="popover"
+            data-bs-placement="bottom"
+            data-bs-content="Campo obbligatorio"
+          ></button>
+        </div>
 
-        <label for="description">Descrizione prodotto</label>
-        <textarea
-          class="mt-1 w-100 form-control"
-          name="description"
-          id="description"
-          required
-        ></textarea>
+        <div class="position-relative">
+          <label for="description">Descrizione prodotto</label>
+          <textarea
+            class="mt-1 w-100 form-control"
+            name="description"
+            id="description"
+            required
+          ></textarea>
+          <button
+            id="descriptionValidation"
+            type="button"
+            class="opacity-0 validation"
+            data-bs-container="body"
+            data-bs-toggle="popover"
+            data-bs-placement="bottom"
+            data-bs-content="Campo obbligatorio"
+          ></button>
+        </div>
 
-        <div class="d-flex justify-content-end mt-3 gap-3">
-          <button type="reset" class="btn btn-outline-secondary px-5">
-            Reset
+        <div class="d-flex justify-content-between mt-4">
+          <button
+            type="button"
+            id="delete"
+            class="btn btn-danger px-5"
+            data-bs-target="#firstModal"
+            data-bs-toggle="modal"
+            hidden
+          >
+            <i class="bi bi-trash text-white"></i>
           </button>
-          <button type="submit" id="sendForm" class="btn btn-warning px-5">
-            Save
-          </button>
+          <span></span>
+          <div class="d-flex justify-content-end gap-3">
+            <button
+              type="button"
+              id="resForm"
+              class="btn btn-outline-secondary px-5"
+              data-bs-target="#resetModal1"
+              data-bs-toggle="modal"
+            >
+              Reset
+            </button>
+            <button type="submit" id="sendForm" class="btn btn-warning px-5">
+              Save
+            </button>
+          </div>
         </div>
       </form>
     </main>
+
+    <!-- DELETE MODAL -->
+    <div
+      class="modal fade"
+      id="firstModal"
+      aria-hidden="true"
+      aria-labelledby="firstModalLabel"
+      tabindex="-1"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="firstModalLabel">
+              Conferma Operazione
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="textModal1">
+            Sei sicuro di voler eliminare il prodotto?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Annulla
+            </button>
+            <button
+              class="btn btn-primary"
+              data-bs-target="#secondModal"
+              data-bs-toggle="modal"
+            >
+              Conferma
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="secondModal"
+      aria-hidden="true"
+      aria-labelledby="exampleModalToggleLabel2"
+      tabindex="-1"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">
+              Sei proprio sicuro?
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="textModal2">
+            Il prodotto sarà eliminato definitivamente, confermi?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Annulla
+            </button>
+            <button
+              id="confirm"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              data-bs-toggle="modal"
+            >
+              Elimina definitivamente
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESET MODAL -->
+    <div
+      class="modal fade"
+      id="resetModal1"
+      aria-hidden="true"
+      aria-labelledby="resetModal1Label"
+      tabindex="-1"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="resetModal1Label">
+              Conferma Operazione
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="textModal1">
+            Sicuro di voler svuotare i campi?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Annulla
+            </button>
+            <button
+              class="btn btn-primary"
+              data-bs-target="#resetModal2"
+              data-bs-toggle="modal"
+            >
+              Conferma
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="resetModal2"
+      aria-hidden="true"
+      aria-labelledby="exampleModalToggleLabel2"
+      tabindex="-1"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">
+              Sei proprio sicuro?
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="textModal2">
+            I campi saranno tutti resettati, confermi?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Annulla
+            </button>
+            <button
+              id="reseButt"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              data-bs-toggle="modal"
+            >
+              Svuota campi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

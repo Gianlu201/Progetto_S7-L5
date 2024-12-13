@@ -35,3 +35,11 @@ nav a:visited {
 #imgDetails {
   width: 100%;
 }
+
+/*---- BACK PAGE ----------------------------------------------------*/
+button.validation {
+  position: absolute;
+  top: 55px;
+  left: 100px;
+  z-index: -100;
+}
