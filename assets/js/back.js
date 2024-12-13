@@ -189,13 +189,16 @@ async function loadingAnimation(method) {
       showMessage(method);
       main[0].classList.remove('opacized');
     }
-  }, 5000);
+  }, 4000);
 }
 
 function showMessage(method) {
   document.getElementById('messageModal').classList.add('d-block');
-  if (method != 'POST') {
-    document.getElementById('messageModal').setAttribute('hidden', 'true');
+  if (method == 'POST') {
+    setTimeout(() => {
+      document.getElementById('messageModal').setAttribute('tabiondex', '-1');
+      document.getElementById('messageModal').classList.remove('d-block');
+    }, 3000);
   } else {
     setTimeout(() => {
       window.location = 'index.html';
